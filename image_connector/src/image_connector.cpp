@@ -33,15 +33,33 @@ void ImageConnector::init(const std::string& sub_img_topic, const std::string& p
   pub_str_ = nh_.advertise<std_msgs::String>(pub_str_topic_, 5);
 }
 
+// spin. It keeps node alive.
 void ImageConnector::spin() {
   ros::spin();
 }
 
+
+// Image callback function.
+// receives ros image message, and publishes string message at the end.
 void ImageConnector::imageCB(const sensor_msgs::ImageConstPtr& msg) {
-  ROS_INFO("Received Image");
+  std::string str; 
+
+  ROS_INFO("Received Image and processing..");
+  str =  processImage(msg); 
+
+  ROS_INFO("Publishing message");
+  std_msgs::String msg_str; 
+  msg_str.data = str;
+  pub_str_.publish(msg_str);
 }
 
+// Image process function
+// Manipulates given image data to generate string result
 std::string ImageConnector::processImage(const sensor_msgs::ImageConstPtr& image) {
+  /*
+    TODO : This is your turn
+  */
+
   return "Hello";
 }
 
